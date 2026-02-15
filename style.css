@@ -159,6 +159,15 @@ nav {
   background-clip: text;
 }
 
+.hero-subtitle {
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  color: var(--text);
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.8s ease 0.15s both;
+}
+
 .hero-desc {
   font-size: 1.1rem;
   color: var(--text-muted);
