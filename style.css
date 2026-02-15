@@ -363,7 +363,7 @@ section {
 }
 
 .stat-label {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: var(--text-muted);
   margin-top: 0.3rem;
 }
@@ -467,7 +467,7 @@ section {
 }
 
 .project-card h3 {
-  font-size: 1.15rem;
+  font-size: 1.35rem;
   margin-bottom: 0.6rem;
   font-weight: 600;
 }
@@ -631,12 +631,12 @@ section {
 
 .timeline-date {
   font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: var(--accent);
   margin-bottom: 0.3rem;
 }
 
-.timeline-item h3 { font-size: 1.1rem; margin-bottom: 0.2rem; }
+.timeline-item h3 { font-size: 1.2rem; margin-bottom: 0.2rem; }
 .timeline-item .company { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.6rem; }
 .timeline-item p { color: var(--text-muted); font-size: 0.88rem; }
 
@@ -661,7 +661,7 @@ section {
 }
 
 .edu-card .edu-icon { font-size: 1.5rem; margin-bottom: 1rem; }
-.edu-card h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+.edu-card h3 { font-size: 1.2rem; margin-bottom: 0.3rem; }
 .edu-card .edu-degree { color: var(--accent); font-family: var(--mono); font-size: 0.8rem; margin-bottom: 0.3rem; }
 .edu-card .edu-details { color: var(--text-muted); font-size: 0.85rem; }
 
