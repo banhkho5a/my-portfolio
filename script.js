@@ -14,11 +14,16 @@ const resumeBtn = document.getElementById('resume-btn');
 const resumeModal = document.getElementById('resume-modal');
 const modalClose = document.getElementById('modal-close');
 
-resumeBtn.addEventListener('click', (e) => {
+const navResumeBtn = document.getElementById('nav-resume-btn');
+
+function openResumeModal(e) {
   e.preventDefault();
   resumeModal.classList.add('active');
   document.body.style.overflow = 'hidden';
-});
+}
+
+resumeBtn.addEventListener('click', openResumeModal);
+navResumeBtn.addEventListener('click', openResumeModal);
 
 modalClose.addEventListener('click', () => {
   resumeModal.classList.remove('active');
