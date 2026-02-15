@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>An Hoang — Developer Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface-2: #1a1a26;
+    --border: #2a2a3a;
+    --text: #e8e8f0;
+    --text-muted: #8888a0;
+    --accent: #00e5a0;
+    --accent-dim: #00e5a020;
+    --accent-glow: #00e5a040;
+    --warm: #ff6b4a;
+    --blue: #4a9eff;
+    --purple: #b06aff;
+    --yellow: #ffc44a;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Sora', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) var(--bg);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .grid-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, var(--accent-glow), transparent 60%);
+  }
+
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    background: #0a0a0fcc;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+  }
+
+  .nav-logo span { color: var(--text-muted); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-links a::before {
+    content: '~/ ';
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::before { opacity: 1; }
+
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .hero-content { max-width: 750px; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-glow);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.8s ease both;
+  }
+
+  .hero-tag .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero h1 {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 0.8s ease 0.1s both;
+  }
+
+  .hero h1 .highlight {
+    background: linear-gradient(135deg, var(--accent), var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 540px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    animation: fadeInUp 0.8s ease 0.2s both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease 0.3s both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.8rem;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 40px var(--accent-glow);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.8rem;
+    background: transparent;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .hero-visual {
+    position: absolute;
+    right: 4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 360px;
+    animation: fadeInUp 1s ease 0.4s both;
+  }
+
+  .terminal-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px #00000060;
+  }
+
+  .terminal-bar {
+    display: flex;
+    gap: 6px;
+    padding: 0.75rem 1rem;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .terminal-dot:nth-child(1) { background: #ff5f57; }
+  .terminal-dot:nth-child(2) { background: #febc2e; }
+  .terminal-dot:nth-child(3) { background: #28c840; }
+
+  .terminal-body {
+    padding: 1.2rem;
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    line-height: 2;
+  }
+
+  .terminal-body .prompt { color: var(--accent); }
+  .terminal-body .cmd { color: var(--text); }
+  .terminal-body .string { color: var(--warm); }
+  .terminal-body .key { color: var(--blue); }
+
+  .cursor-blink {
+    display: inline-block;
+    width: 8px;
+    height: 15px;
+    background: var(--accent);
+    margin-left: 4px;
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 4rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+  }
+
+  .section-desc {
+    color: var(--text-muted);
+    max-width: 550px;
+    margin-bottom: 3.5rem;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .about-text strong { color: var(--text); }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .stat-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px #00000040;
+  }
+
+  .stat-number {
+    font-family: var(--mono);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+  }
+
+  .tech-stack-section { margin-top: 2rem; }
+
+  .tech-category { margin-bottom: 1rem; }
+
+  .tech-category-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.5rem;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    transition: all 0.3s;
+  }
+
+  .tech-tag:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--blue));
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px #00000050;
+  }
+
+  .project-card:hover::before { opacity: 1; }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .project-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+  }
+
+  .project-date {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  .project-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+  }
+
+  .project-card p {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+
+  .project-highlight {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--yellow);
+    background: #ffc44a12;
+    border: 1px solid #ffc44a30;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .project-tags span {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    background: var(--surface-2);
+    color: var(--text-muted);
+  }
+
+  .project-featured {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .project-featured .project-preview {
+    background: var(--surface-2);
+    border-radius: 10px;
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dashboard-mock {
+    width: 100%; height: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .mock-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mock-title {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+
+  .mock-dots { display: flex; gap: 4px; }
+  .mock-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--border); }
+  .mock-dots span:first-child { background: var(--accent); }
+
+  .mock-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .mock-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .mock-card-label { font-family: var(--mono); font-size: 0.55rem; color: var(--text-muted); }
+  .mock-card-value { font-family: var(--mono); font-size: 0.9rem; font-weight: 700; color: var(--accent); }
+  .mock-card-value.blue { color: var(--blue); }
+
+  .mock-table {
+    flex: 2;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .mock-table-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 0.8fr 0.8fr;
+    gap: 0.3rem;
+    font-family: var(--mono);
+    font-size: 0.52rem;
+    color: var(--text-muted);
+    padding: 0.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mock-table-row:first-child { color: var(--text); font-weight: 600; }
+  .mock-table-row:last-child { border-bottom: none; }
+  .mock-table-row .green { color: var(--accent); }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--purple), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 0 0 3rem 2rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -0.35rem;
+    top: 0.4rem;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--bg);
+    box-shadow: 0 0 10px var(--accent-glow);
+  }
+
+  .timeline-date {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+  }
+
+  .timeline-item h3 { font-size: 1.1rem; margin-bottom: 0.2rem; }
+  .timeline-item .company { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.6rem; }
+  .timeline-item p { color: var(--text-muted); font-size: 0.88rem; }
+
+  .education-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem;
+    transition: all 0.3s;
+  }
+
+  .edu-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px #00000040;
+  }
+
+  .edu-card .edu-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+  .edu-card h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+  .edu-card .edu-degree { color: var(--accent); font-family: var(--mono); font-size: 0.8rem; margin-bottom: 0.3rem; }
+  .edu-card .edu-details { color: var(--text-muted); font-size: 0.85rem; }
+
+  .edu-card .edu-gpa {
+    display: inline-flex;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    padding: 0.3rem 0.7rem;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-glow);
+    border-radius: 6px;
+    color: var(--accent);
+    margin-top: 0.8rem;
+  }
+
+  .contact-section { text-align: center; padding: 8rem 4rem; }
+  .contact-section .section-desc { margin: 0 auto 3rem; }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    transition: all 0.3s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px #00000040;
+  }
+
+  .contact-link svg { width: 18px; height: 18px; stroke: var(--accent); }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 1024px) {
+    .hero-visual { display: none; }
+    .project-featured { grid-column: span 1; grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a::before { display: none; }
+    .hero, section { padding: 5rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .education-grid { grid-template-columns: 1fr; }
+    .contact-section { padding: 5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<nav>
+  <div class="nav-logo">an<span>.dev</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#education">education</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">
+      <span class="dot"></span>
+      Open to opportunities · Graduating Dec 2026
+    </div>
+    <h1>
+      Hi, I'm <span class="highlight">An Hoang</span>.<br>
+      I build tools<br>that automate.
+    </h1>
+    <p class="hero-desc">
+      CS student at San Jose State University specializing in full-stack development, 
+      browser automation, and trading systems. I love turning complex workflows 
+      into clean, automated solutions.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">
+        <span>→</span> View Projects
+      </a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="terminal-card">
+      <div class="terminal-bar">
+        <div class="terminal-dot"></div>
+        <div class="terminal-dot"></div>
+        <div class="terminal-dot"></div>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">$</span> <span class="cmd">cat about.json</span></div>
+        <div>{</div>
+        <div>&nbsp;&nbsp;<span class="key">"name"</span>: <span class="string">"An Hoang"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="key">"school"</span>: <span class="string">"San Jose State"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="key">"degree"</span>: <span class="string">"B.A. Computer Science"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="key">"gpa"</span>: <span class="string">"3.5"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="key">"focus"</span>: [</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Full-Stack Dev"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Automation"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Trading Systems"</span></div>
+        <div>&nbsp;&nbsp;]</div>
+        <div>}</div>
+        <div><span class="prompt">$</span> <span class="cursor-blink"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="reveal">
+    <div class="section-label">// About Me</div>
+    <div class="section-title">Who I Am</div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        I'm a <strong>Computer Science student at San Jose State University</strong>
+        (transferred from De Anza College) with a knack for building 
+        <strong>automation tools and full-stack applications</strong> that solve real problems — 
+        from desktop trading platforms to AI-powered analysis systems.
+      </p>
+      <p>
+        I'm most at home working across the stack: wiring up <strong>React/TypeScript</strong> 
+        frontends to <strong>FastAPI/Node.js</strong> backends, automating browser workflows with 
+        <strong>Playwright</strong>, and building data pipelines with <strong>Python</strong>. 
+        I enjoy the challenge of integrating complex external systems — broker APIs, 
+        SEC filings, OTP flows — into cohesive products.
+      </p>
+
+      <div class="tech-stack-section">
+        <div class="tech-category">
+          <div class="tech-category-label">Languages</div>
+          <div class="tech-stack">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">TypeScript</span>
+            <span class="tech-tag">Java</span>
+            <span class="tech-tag">C++</span>
+            <span class="tech-tag">HTML/CSS</span>
+            <span class="tech-tag">Pine Script</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <div class="tech-category-label">Frameworks & Libraries</div>
+          <div class="tech-stack">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">Electron</span>
+            <span class="tech-tag">Pandas</span>
+            <span class="tech-tag">Plotly</span>
+            <span class="tech-tag">Playwright</span>
+            <span class="tech-tag">Selenium</span>
+            <span class="tech-tag">Discord.py</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <div class="tech-category-label">Databases & Tools</div>
+          <div class="tech-stack">
+            <span class="tech-tag">SQLite</span>
+            <span class="tech-tag">MongoDB</span>
+            <span class="tech-tag">SQLAlchemy</span>
+            <span class="tech-tag">Git/GitHub</span>
+            <span class="tech-tag">AWS EC2</span>
+            <span class="tech-tag">GCP</span>
+            <span class="tech-tag">Postman</span>
+            <span class="tech-tag">Jira</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="stats-row">
+        <div class="stat-card">
+          <span class="stat-number">5+</span>
+          <div class="stat-label">Projects Built</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">3.5</span>
+          <div class="stat-label">GPA</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">12+</span>
+          <div class="stat-label">Brokers Integrated</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="reveal">
+    <div class="section-label">// Projects</div>
+    <div class="section-title">What I've Built</div>
+    <p class="section-desc">From desktop trading platforms to AI event analysis — projects that showcase my full-stack and automation skills.</p>
+  </div>
+
+  <div class="projects-grid">
+
+    <div class="project-card project-featured reveal">
+      <div>
+        <div class="project-header">
+          <div class="project-icon" style="background: var(--accent-dim); color: var(--accent);">💹</div>
+          <div class="project-date">Nov 2025 – Present</div>
+        </div>
+        <h3>Broker Hub — Desktop Trading Platform</h3>
+        <p>
+          Cross-platform desktop app (Electron + React/TypeScript) enabling automated 
+          buy/sell order execution across 12+ brokers (Schwab, Robinhood, Fidelity, etc.) 
+          during regular and extended market hours. Features a FastAPI backend with REST APIs 
+          for account groups, trade scheduling, and real-time portfolio syncing. 
+          Integrated Playwright browser automation with IMAP-based OTP for 2FA, 
+          real-time UI event streaming, and Discord notifications.
+        </p>
+        <div class="project-tags">
+          <span>Electron</span>
+          <span>React</span>
+          <span>TypeScript</span>
+          <span>FastAPI</span>
+          <span>Playwright</span>
+          <span>SQLAlchemy</span>
+          <span>SQLite</span>
+        </div>
+      </div>
+      <div class="project-preview">
+        <div class="dashboard-mock">
+          <div class="mock-header">
+            <div class="mock-title">BROKER HUB — Portfolio Overview</div>
+            <div class="mock-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="mock-row">
+            <div class="mock-card">
+              <div class="mock-card-label">Total Value</div>
+              <div class="mock-card-value">$48,230</div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-card-label">Today P/L</div>
+              <div class="mock-card-value">+$1,204</div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-card-label">Brokers</div>
+              <div class="mock-card-value blue">12</div>
+            </div>
+          </div>
+          <div class="mock-table">
+            <div class="mock-table-row">
+              <span>Broker</span><span>Balance</span><span>Status</span><span>Orders</span>
+            </div>
+            <div class="mock-table-row">
+              <span>Schwab</span><span>$12,450</span><span class="green">● Synced</span><span>3</span>
+            </div>
+            <div class="mock-table-row">
+              <span>Fidelity</span><span>$8,900</span><span class="green">● Synced</span><span>1</span>
+            </div>
+            <div class="mock-table-row">
+              <span>Robinhood</span><span>$6,230</span><span class="green">● Synced</span><span>5</span>
+            </div>
+            <div class="mock-table-row">
+              <span>Webull</span><span>$4,100</span><span style="color: var(--yellow);">● Pending</span><span>0</span>
+            </div>
+            <div class="mock-table-row">
+              <span>E*TRADE</span><span>$3,880</span><span class="green">● Synced</span><span>2</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-icon" style="background: #ff6b4a18; color: var(--warm);">🔍</div>
+        <div class="project-date">Oct 2025 – Present</div>
+      </div>
+      <h3>Stock Event Analysis & Alert System</h3>
+      <p>
+        Automated monitoring system with modular pipelines (SEC EDGAR, RSS, web sources) 
+        that detects corporate actions using OpenAI for structured extraction and 
+        decision recommendations. Features reverse split detection, AI-driven ratio extraction, 
+        MongoDB storage, and Discord webhook alerts with confidence scoring.
+      </p>
+      <div class="project-tags">
+        <span>Python</span>
+        <span>OpenAI API</span>
+        <span>MongoDB</span>
+        <span>Discord Webhooks</span>
+        <span>SEC EDGAR</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-icon" style="background: #4a9eff18; color: var(--blue);">📈</div>
+        <div class="project-date">Jan 2026 – Present</div>
+      </div>
+      <h3>Modular Trading Strategy</h3>
+      <p>
+        Intraday trend and channel-breakout strategy in Pine Script with flexible filters 
+        and modules assembled by a Python build pipeline. Includes a utility for parsing 
+        broker order reports and visualizing account performance over time.
+      </p>
+      <div class="project-highlight">🏆 78% win rate · 2.2 profit factor · &lt;15% drawdown</div>
+      <div class="project-tags">
+        <span>Pine Script</span>
+        <span>Python</span>
+        <span>Pandas</span>
+        <span>Plotly</span>
+        <span>TradingView</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-icon" style="background: #b06aff18; color: var(--purple);">🛒</div>
+        <div class="project-date">May 2024</div>
+      </div>
+      <h3>Cart Sharing Browser Extension</h3>
+      <p>
+        Chrome extension with RESTful APIs to import/export DoorDash and Uber Eats 
+        cart data. Users share food choices via invite link parsing and cart merging. 
+        Built with a modular codebase designed for expansion to other platforms.
+      </p>
+      <div class="project-tags">
+        <span>JavaScript</span>
+        <span>Chrome Extension</span>
+        <span>REST API</span>
+        <span>HTML/CSS</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-icon" style="background: var(--accent-dim); color: var(--accent);">♻️</div>
+        <div class="project-date">Oct 2023</div>
+      </div>
+      <h3>The Recycling Game</h3>
+      <p>
+        Interactive educational game teaching proper waste separation and recycling. 
+        Designed game state and scoring logic with efficient data structures. 
+        Led code review and refactoring, reducing codebase by 40%.
+      </p>
+      <div class="project-highlight">🏆 Best Beginner Hack — De Anza Hackathon</div>
+      <div class="project-tags">
+        <span>Python</span>
+        <span>Pygame</span>
+        <span>Team of 4</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="experience">
+  <div class="reveal">
+    <div class="section-label">// Experience</div>
+    <div class="section-title">Where I've Worked</div>
+  </div>
+
+  <div class="timeline reveal">
+    <div class="timeline-item">
+      <div class="timeline-date">Sep 2023 — Mar 2024</div>
+      <h3>Computer Technical Support</h3>
+      <div class="company">De Anza College — Cupertino, CA</div>
+      <p>
+        Diagnosed and repaired hardware issues for over 50 refurbished laptops. 
+        Resolved OS failures and deployed new installations to ensure system functionality. 
+        Conducted final testing and QA before distributing laptops to students in need.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="reveal">
+    <div class="section-label">// Education</div>
+    <div class="section-title">Where I've Studied</div>
+  </div>
+
+  <div class="education-grid reveal">
+    <div class="edu-card">
+      <div class="edu-icon">🎓</div>
+      <h3>San Jose State University</h3>
+      <div class="edu-degree">B.A. in Computer Science</div>
+      <div class="edu-details">San Jose, CA · Expected Dec 2026</div>
+      <div class="edu-gpa">GPA: 3.5</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-icon">📚</div>
+      <h3>De Anza College</h3>
+      <div class="edu-degree">Computer Science Transfer</div>
+      <div class="edu-details">Cupertino, CA · Jan 2023 – Jun 2024</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact-section">
+  <div class="reveal">
+    <div class="section-label">// Contact</div>
+    <div class="section-title">Let's Connect</div>
+    <p class="section-desc">
+      I'm looking for full-time software engineering opportunities starting early 2027.
+      Let's talk about how I can contribute to your team.
+    </p>
+
+    <div class="contact-links">
+      <a href="mailto:banhkho5a@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        banhkho5a@gmail.com
+      </a>
+      <a href="https://github.com/banhkho5a" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+        GitHub
+      </a>
+      <a href="https://linkedin.com/in/an-thien-hoang" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="#" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14,2 14,8 20,8"/></svg>
+        Resume
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>designed & built by an hoang · 2026</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => { entry.target.classList.add('visible'); }, i * 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
