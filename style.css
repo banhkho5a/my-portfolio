@@ -324,10 +324,24 @@ section {
   align-items: start;
 }
 
+.about-left .section-desc {
+  margin-bottom: 1.5rem;
+}
+
+.about-right {
+  padding-top: 5.5rem;
+}
+
+
 .about-text p {
   color: var(--text-muted);
-  margin-bottom: 1.5rem;
-  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  padding: 0.9rem 1.2rem;
+  border-radius: 0 8px 8px 0;
 }
 
 .about-text strong { color: var(--text); }
