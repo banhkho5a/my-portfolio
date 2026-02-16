@@ -4,7 +4,7 @@ My developer portfolio website showcasing projects, technical skills, and experi
 
 ## Live Site
 
-🔗 [banhkho5a.com](https://banhkho5a.com)
+🔗 [anhoang.dev](https://anhoang.dev/)
 
 ## Tech Stack
 
@@ -20,20 +20,21 @@ My developer portfolio website showcasing projects, technical skills, and experi
 - Animated hero section with terminal card
 - Categorized tech stack display
 - Featured project card with dashboard mockup
+- Project cards with bullet-point descriptions and SVG icons
 - Timeline-based experience section
-- Education cards with GPA highlights
-- Contact section with email, GitHub, and LinkedIn links
+- Education cards with date badges and location details
+- Contact section with email, GitHub, LinkedIn, and resume links
 
 ## Sections
 
 | Section | Description |
 |---------|-------------|
 | **Hero** | Intro, tagline, and animated terminal JSON card |
-| **About** | Bio, categorized tech stack, and key stats |
-| **Projects** | 5 project cards including Broker Hub (featured), Stock Event Analysis, Modular Trading Strategy, Cart Sharing Extension, and The Recycling Game |
+| **About** | Bio with underlined highlights, categorized tech stack, and key stats in a two-column layout |
+| **Projects** | 5 project cards with bullet-point descriptions, SVG icons, and tech tags — Broker Hub (featured with dashboard mockup), Stock Event Analysis, Modular Trading Strategy, Cart Sharing Extension, and The Recycling Game |
 | **Experience** | Timeline of work history |
-| **Education** | SJSU and De Anza College |
-| **Contact** | Email, GitHub, LinkedIn, and resume links |
+| **Education** | SJSU and De Anza College with date badges and location details |
+| **Contact** | Email, GitHub, LinkedIn, and resume modal |
 
 ## Getting Started
 
