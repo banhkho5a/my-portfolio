@@ -9,6 +9,17 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 reveals.forEach(el => observer.observe(el));
 
+// Stagger glare animation on tech tags
+document.querySelectorAll('.tech-tag').forEach((tag, i) => {
+  tag.style.animationDelay = `${i * 0.3}s`;
+  tag.style.setProperty('--glare-delay', `${i * 0.3}s`);
+});
+
+// Stagger glare animation on project tags
+document.querySelectorAll('.project-tags span').forEach((tag, i) => {
+  tag.style.setProperty('--glare-delay', `${i * 0.3}s`);
+});
+
 // Mobile nav toggle
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
