@@ -913,7 +913,8 @@ footer {
 
 .modal-body {
   flex: 1;
-  overflow: hidden;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .modal-body iframe {
