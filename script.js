@@ -39,8 +39,16 @@ const modalClose = document.getElementById('modal-close');
 
 const navResumeBtn = document.getElementById('nav-resume-btn');
 
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 function openResumeModal(e) {
   e.preventDefault();
+  if (isMobile) {
+    if (confirm('Open resume in a new tab for better viewing?')) {
+      window.open('assets/resume.pdf', '_blank');
+    }
+    return;
+  }
   resumeModal.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
