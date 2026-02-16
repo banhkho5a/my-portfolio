@@ -224,7 +224,7 @@ nav {
   background: var(--accent);
   color: var(--bg);
   font-family: var(--mono);
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-weight: 600;
   border: none;
   border-radius: 8px;
@@ -247,7 +247,7 @@ nav {
   background: transparent;
   color: var(--text);
   font-family: var(--mono);
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-weight: 500;
   border: 1px solid var(--border);
   border-radius: 8px;
