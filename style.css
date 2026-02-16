@@ -945,6 +945,17 @@ footer {
 
   .nav-toggle { display: flex; }
 
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 99;
+  }
+
+  .nav-overlay.active { display: block; }
+
   .nav-links {
     display: none;
     position: absolute;
@@ -952,16 +963,26 @@ footer {
     left: 0;
     right: 0;
     flex-direction: column;
-    background: #0a0a0fee;
-    backdrop-filter: blur(20px);
-    padding: 1.5rem 2rem;
-    gap: 1rem;
+    background: var(--bg);
     border-bottom: 1px solid var(--border);
+    padding: 0.5rem 1.5rem 0.75rem;
+    gap: 0;
   }
 
   .nav-links.open { display: flex; }
 
-  .nav-links a { font-size: 1rem; }
+  .nav-links li {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-links li:last-child { border-bottom: none; }
+
+  .nav-links a {
+    font-size: 1.1rem;
+    display: block;
+    padding: 0.8rem 0;
+  }
+
   .nav-links a::before { display: none; }
 
   .hero, section { padding: 5rem 1.5rem; }

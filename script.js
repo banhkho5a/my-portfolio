@@ -12,17 +12,24 @@ reveals.forEach(el => observer.observe(el));
 // Mobile nav toggle
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
+const navOverlay = document.querySelector('.nav-overlay');
+
+function closeNav() {
+  navToggle.classList.remove('active');
+  navLinks.classList.remove('open');
+  navOverlay.classList.remove('active');
+}
 
 navToggle.addEventListener('click', () => {
+  const isOpen = navLinks.classList.toggle('open');
   navToggle.classList.toggle('active');
-  navLinks.classList.toggle('open');
+  navOverlay.classList.toggle('active');
 });
 
+navOverlay.addEventListener('click', closeNav);
+
 navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    navToggle.classList.remove('active');
-    navLinks.classList.remove('open');
-  });
+  link.addEventListener('click', closeNav);
 });
 
 // Resume modal
